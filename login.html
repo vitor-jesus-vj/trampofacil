@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pedidos - TrampoFácil</title>
+  <title>Login - TrampoFácil</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
-  <h2>Área de pedidos</h2>
-  <p>Aqui os prestadores podem ver e os clientes podem criar pedidos.</p>
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="E-mail">
+  <input type="password" id="senha" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <button onclick="registrar()">Cadastrar</button>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      firebase.auth().signInWithEmailAndPassword(email, senha)
+        .then(() => window.location.href = "pedidos.html")
+        .catch(e => alert("Erro ao logar: " + e.message));
+    }
+
+    function registrar() {
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      firebase.auth().createUserWithEmailAndPassword(email, senha)
+        .then(() => alert("Usuário criado! Faça login."))
+        .catch(e => alert("Erro ao cadastrar: " + e.message));
+    }
+  </script>
 </body>
 </html>
